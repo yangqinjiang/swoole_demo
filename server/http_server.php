@@ -10,7 +10,15 @@ $http->set([
 	'document_root'=>"/home/root/study/code/static"
 ]);
 $http->on("request",function($request,$response){
-	print_r($request->get);
+	//print_r($request->get);
+	//记录日志
+	$content = [
+	'date:'=>date('Ymd His'),
+	'get:'=>$request->get,
+	'post:'=>$request->post,
+	'header:'=>$request->header,
+	];
+	swoole_async_writefile(__DIR__."/access.log",json_encode($content).PHP_EOL,function($filename){},FILE_APPEND);
 	$response->cookie("singwa","xssss",time()+1800);
 	$response->end("sss".json_encode($request->get));
 });
