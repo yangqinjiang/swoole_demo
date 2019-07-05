@@ -9,6 +9,8 @@
 <script>
 var websocket = new WebSocket("ws://127.0.0.1:8812");
 websocket.onopen = function(evt){
+	//发送数据
+	websocket.send("hello-singwa");
 	console.log("conected-swoole-success");
 }
 websocket.onmessage = function(evt){
