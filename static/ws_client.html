@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ws</title>
+</head>
+<body>
+<h1>singwa-swoole-ws测试</h1>
+<script>
+var websocket = new WebSocket("ws://127.0.0.1:8812");
+websocket.onopen = function(evt){
+	console.log("conected-swoole-success");
+}
+websocket.onmessage = function(evt){
+	console.log("ws-server-return-data:"+evt.data);
+}
+websocket.onclose =function(evt){
+	console.log("close");
+}
+
+websocket.onerror = function(evt,e){
+	console.log("error:"+evt.data);
+}
+</script>
+</body>
+</html>
