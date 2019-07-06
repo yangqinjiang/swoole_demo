@@ -26,7 +26,7 @@ $http->on('WorkerStart', function(swoole_server $server,  $worker_id) {
 $http->on('request', function($request, $response) use($http){
 
     //还原$_SERVER数据
-    $_SERVER  =  [];
+    $_SERVER  =  [];//一定要清空,否则下次过来会保持上次请求的数据
     if(isset($request->server)) {
         foreach($request->server as $k => $v) {
             $_SERVER[strtoupper($k)] = $v;
@@ -39,14 +39,14 @@ $http->on('request', function($request, $response) use($http){
         }
     }
     //还原$_GET数据
-    $_GET = [];
+    $_GET = [];//一定要清空,否则下次过来会保持上次请求的数据
     if(isset($request->get)) {
         foreach($request->get as $k => $v) {
             $_GET[$k] = $v;
         }
     }
     //还原$_POST数据
-    $_POST = [];
+    $_POST = [];//一定要清空,否则下次过来会保持上次请求的数据
     if(isset($request->post)) {
         foreach($request->post as $k => $v) {
             $_POST[$k] = $v;
@@ -55,6 +55,7 @@ $http->on('request', function($request, $response) use($http){
     //清除缓冲区
     ob_start();
     // 执行应用并响应
+    //捕获异常
     try {
         //container有命名空间
         think\Container::get('app', [APP_PATH])
@@ -68,6 +69,7 @@ $http->on('request', function($request, $response) use($http){
     $res = ob_get_contents();//读取缓冲区的内容
     ob_end_clean();
     $response->end($res);
+    $http->close();//粗暴地关闭链接.可清空变量??
 });
 
 $http->start();
