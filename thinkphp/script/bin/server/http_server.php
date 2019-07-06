@@ -14,6 +14,8 @@ $http->set(
         'worker_num' => 5,
     ]
 );
+
+//分别有 worker_num个进程启动下面的代码
 $http->on('WorkerStart', function(swoole_server $server,  $worker_id) {
     
     // 定义应用目录
@@ -69,7 +71,7 @@ $http->on('request', function($request, $response) use($http){
     $res = ob_get_contents();//读取缓冲区的内容
     ob_end_clean();
     $response->end($res);
-    $http->close();//粗暴地关闭链接.可清空变量??
+    //$http->close();//粗暴地关闭链接.可清空变量??但会在终端上报错
 });
 
 $http->start();

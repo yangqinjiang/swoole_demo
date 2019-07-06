@@ -431,7 +431,9 @@ class Request
      */
     public function path()
     {
-        if (is_null($this->path)) {
+        //TODO: 适配swoole,
+        //   让它每次都检查path
+        if (true || is_null($this->path)) {
             $suffix   = $this->config->get('url_html_suffix');
             $pathinfo = $this->pathinfo();
             if (false === $suffix) {
