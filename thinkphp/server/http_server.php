@@ -10,6 +10,7 @@ $http->set([
 	'document_root'=>__DIR__."/../publi/static"
 ]);
 $http->on("request",function($request,$response){
+	echo __DIR__."/../publi/static";
 	//print_r($request->get);
 	//记录日志
 	$content = [
