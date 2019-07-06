@@ -25,32 +25,34 @@ $http->on('WorkerStart', function(swoole_server $server,  $worker_id) {
 });
 $http->on('request', function($request, $response) use($http){
 
- 
+    //还原$_SERVER数据
     $_SERVER  =  [];
     if(isset($request->server)) {
         foreach($request->server as $k => $v) {
             $_SERVER[strtoupper($k)] = $v;
         }
     }
+    //还原header数据
     if(isset($request->header)) {
         foreach($request->header as $k => $v) {
             $_SERVER[strtoupper($k)] = $v;
         }
     }
-
+    //还原$_GET数据
     $_GET = [];
     if(isset($request->get)) {
         foreach($request->get as $k => $v) {
             $_GET[$k] = $v;
         }
     }
+    //还原$_POST数据
     $_POST = [];
     if(isset($request->post)) {
         foreach($request->post as $k => $v) {
             $_POST[$k] = $v;
         }
     }
-    
+    //清除缓冲区
     ob_start();
     // 执行应用并响应
     try {
@@ -62,10 +64,9 @@ $http->on('request', function($request, $response) use($http){
     }
 
     //echo "-action-".request()->action().PHP_EOL;
-    $res = ob_get_contents();
+    $res = ob_get_contents();//读取缓冲区的内容
     ob_end_clean();
     $response->end($res);
-    //$http->close();
 });
 
 $http->start();

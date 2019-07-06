@@ -4,7 +4,7 @@ class Index
 {
     public function index()
     {
-        return  'call Index/index';
+        return  '<h1>call Index/index</h1>';
     }
 
     public function singwa() {
