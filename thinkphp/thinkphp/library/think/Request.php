@@ -399,7 +399,7 @@ class Request
     {
         //TODO: 适配swoole,
         //   让它每次都检查path
-        if (true || is_null($this->pathinfo)) {
+        if (is_null($this->pathinfo)) {
             if (isset($_GET[$this->config->get('var_pathinfo')])) {
                 // 判断URL里面是否有兼容模式参数
                 $_SERVER['PATH_INFO'] = $_GET[$this->config->get('var_pathinfo')];
