@@ -22,23 +22,25 @@ class AysMysql{
 	}
 	public function execute($id,$username){
 		//
-		$this->dbSource->connect($this->dbConfig,function($db,$connect_result){
+		$this->dbSource->connect($this->dbConfig,function($db,$connect_result) use ($id,$username){
 			//连接成功?
 			if(false === $connect_result){
 				var_dump($db->connect_error);
 				return false;
 			}
 			echo "链接成功".PHP_EOL;
-			$sql = "select * from test where id = 1";
-			//$sql = "update test set `username` = '{$username}' where id = {$id}";
+//			$sql = "select * from test where id = 1";
+			$sql = "update test set `dame` = '{$username}' where id = {$id}";
 			//query, 执行(add select update delete)
 			$db->query($sql,function($db,$result){
 				//select =>result 返回的是 查询的结果内容
 				// add update delete 返回true \ false
 				if(false === $result){
 					//执行失败
+					var_dump($result)."执行失败".PHP_EOL;
 				}else if(true === $result){
 					// add update delete
+					var_dump($result)."执行结果".PHP_EOL;
 				}else{
 					echo "查询成功".PHP_EOL;
 					//查询select
