@@ -7,10 +7,10 @@ $http = new swoole_http_server("0.0.0.0",8811);
 //当程序找到静态文件时，则输出它,否则向下执行
 $http->set([
 	'enable_static_handler'=>true,
-	'document_root'=>__DIR__."/../publi/static"
+	'document_root'=>__DIR__."/../public/static"
 ]);
 $http->on("request",function($request,$response){
-	echo __DIR__."/../publi/static";
+	// echo __DIR__."/../public/static";
 	//print_r($request->get);
 	//记录日志
 	$content = [
