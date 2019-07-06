@@ -15,17 +15,17 @@ $http->set(
     ]
 );
 $http->on('WorkerStart', function(swoole_server $server,  $worker_id) {
-    echo __DIR__."/../../../public/static".PHP_EOL;
+    
     // 定义应用目录
-    define('APP_PATH', __DIR__ . '/../application/');
+    define('APP_PATH', __DIR__ . '/../../../application/');
     // 加载框架里面的文件
-    //require __DIR__ . '/../thinkphp/base.php';
+    require __DIR__ . '/../../../thinkphp/base.php';
+    //不要加载 start.php
     //require __DIR__ . '/../thinkphp/start.php';
 });
 $http->on('request', function($request, $response) use($http){
 
-    //define('APP_PATH', __DIR__ . '/../application/');
-    //require __DIR__ . '/../thinkphp/base.php';
+ 
     $_SERVER  =  [];
     if(isset($request->server)) {
         foreach($request->server as $k => $v) {
@@ -51,20 +51,20 @@ $http->on('request', function($request, $response) use($http){
         }
     }
     
-    // ob_start();
-    // // 执行应用并响应
-    // try {
-    //     think\Container::get('app', [APP_PATH])
-    //         ->run()
-    //         ->send();
-    // }catch (\Exception $e) {
-    //     // todo
-    // }
+    ob_start();
+    // 执行应用并响应
+    try {
+        think\Container::get('app', [APP_PATH])
+            ->run()
+            ->send();
+    }catch (\Exception $e) {
+        // todo
+    }
 
-    // //echo "-action-".request()->action().PHP_EOL;
-    // $res = ob_get_contents();
-    // ob_end_clean();
-    // $response->end($res);
+    echo "-action-".request()->action().PHP_EOL;
+    $res = ob_get_contents();
+    ob_end_clean();
+    $response->end($res);
     //$http->close();
 });
 
