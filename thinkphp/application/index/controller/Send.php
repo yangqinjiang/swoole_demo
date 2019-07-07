@@ -10,8 +10,8 @@ class Send
      */
     public function index() {
         // tp  input
-        //$phoneNum = request()->get('phone_num', 0, 'intval');
-        $phoneNum = intval($_GET['phone_num']);
+        $phoneNum = request()->get('phone_num', 0, 'intval');
+        // $phoneNum = intval($_GET['phone_num']);
         if(empty($phoneNum)) {
             // status 0 1  message data
             return Util::show(config('code.error'), 'error');
