@@ -30,6 +30,8 @@ class Send
         ];
         sleep(1);
         $send_ok = true;//TODO:使用easy sms 库来发送短信 https://github.com/overtrue/easy-sms
+
+        //TODO: 记录code到redis,使用协程Redis
         if($send_ok){
             return Util::show(config('code.success'), $taskData);
         }else{
