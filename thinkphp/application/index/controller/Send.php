@@ -29,7 +29,7 @@ class Send
         sleep(1);
         $send_ok = true;//TODO:使用easy sms 库来发送短信 https://github.com/overtrue/easy-sms
         if($send_ok){
-            return Util::show(config('code.success'), 'ok'.$code);
+            return Util::show(config('code.success'), $taskData);
         }else{
             return Util::show(config('code.error'), '验证码发送失败');
         }
