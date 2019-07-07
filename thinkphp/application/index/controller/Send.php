@@ -8,7 +8,8 @@ class Send
      */
     public function index() {
         // tp  input
-        $phoneNum = request()->get('phone_num', 0, 'intval');
+        //$phoneNum = request()->get('phone_num', 0, 'intval');
+        $phoneNum = intval($_GET['phone_num']);
         //TODO:参数检测
         if(empty($phoneNum)) {
             // status 0 1  message data
