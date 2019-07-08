@@ -16,6 +16,11 @@ class Task {
      * @param $serv swoole server对象
      */
     public function sendSms($data, $serv) {
+        //TODO:使用easy sms 库来发送短信 https://github.com/overtrue/easy-sms
+        //默认发送成功
+        Predis::getInstance()->set(Redis::smsKey($data['phone']), $data['code'], config('redis.out_time'));
+        return true;
+        /*
         try {
             $response = Sms::sendSms($data['phone'], $data['code']);
         }catch (\Exception $e) {
@@ -30,6 +35,7 @@ class Task {
             return false;
         }
         return true;
+        */
     }
 
     /**

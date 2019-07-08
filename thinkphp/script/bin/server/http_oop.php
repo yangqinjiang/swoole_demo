@@ -2,7 +2,7 @@
 /**
  * 将swoole_http_server编写成对象
  */
-class Http {
+class HttpOOP {
     CONST HOST = "0.0.0.0";
     CONST PORT = 8811;
 
@@ -134,4 +134,4 @@ class Http {
     }
 }
 
-new Http();
+new HttpOOP();

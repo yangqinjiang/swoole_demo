@@ -19,7 +19,7 @@ class Send
 
         //tood
         // 生成一个随机数
-        $code = 6666;//rand(1000, 9999);
+        $code = rand(1000, 9999);
 
         $taskData = [
             'method' => 'sendSms',
@@ -28,35 +28,10 @@ class Send
                 'code' => $code,
             ]
         ];
-        sleep(1);
-        $send_ok = true;//TODO:使用easy sms 库来发送短信 https://github.com/overtrue/easy-sms
-
-
-        if($send_ok){
-            //TODO: 记录code到redis,使用协程Redis
-            //下面的代码, 跑不通, 
-            /*$redis = new \Swoole\Coroutine\Redis();
-            $redis->connect(config('redis.host'),config('redis.port'));
-            $redis->set(\app\common\lib\Redis::smsKey($phoneNum),$code,config('redis.out_time'));
-            $redis->close();*/
-            //异步
-            $redisClient = new \swoole_redis();
-            $redisClient->connect(config('redis.host'),config('redis.port'), 
-                function( \swoole_redis $redisClient,$result) use($phoneNum,$code) {
-                if ($result === false) {
-                    echo "connect to redis server failed.\n";
-                    return;
-                }
-
-                $redisClient->set(\app\common\lib\Redis::smsKey($phoneNum),$code,function($client,$result){
-                    echo($result).PHP_EOL;//输出 OK
-                });//无法设置过期日期
-                $redisClient->close();
-            });
-            return Util::show(config('code.success'), $taskData);
-        }else{
-            return Util::show(config('code.error'), '验证码发送失败');
-        }
+        //sleep(1);
+        //TODO: 放到task里面发送短信, 因为我们不相信外部系统的稳定性
+        $_POST['http_server']->task($taskData);
+        return Util::show(config('code.success'), 'OK');
          
     }
 }
