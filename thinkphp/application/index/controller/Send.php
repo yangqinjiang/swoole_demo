@@ -43,7 +43,11 @@ class Send
             $redisClient = new \swoole_redis;
             $redisClient->connect(config('redis.host'),config('redis.port'),
             function(\swoole_redis $redisClient,$result) use($phoneNum,$code){
-                $redisClient->set(\app\common\lib\Redis::smsKey($phoneNum),$code,config('redis.out_time'));
+                if ($result === false) {
+                    echo "connect to redis server failed.\n";
+                    return;
+                }
+                $redisClient->set(\app\common\lib\Redis::smsKey($phoneNum),$code);//无法设置过期日期
                 $redisClient->close();
             });
             return Util::show(config('code.success'), $taskData);
