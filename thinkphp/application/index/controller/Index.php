@@ -5,7 +5,7 @@ class Index
     // http://127.0.0.1:8811/?s=/index/index/index
     public function index()
     {
-        return  '<h1>call Index/index</h1>';
+        return  "worker start ...".PHP_EOL;
     }
     // http://127.0.0.1:8811/?s=/index/index/singwa
     public function singwa() {
