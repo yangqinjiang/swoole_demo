@@ -15,7 +15,7 @@ class Task {
      * @param $data
      * @param $serv swoole server对象
      */
-    public function sendSms($data, $serv) {
+    public function sendSms($data, $serv=null) {
         //TODO:使用easy sms 库来发送短信 https://github.com/overtrue/easy-sms
         //默认发送成功
         Predis::getInstance()->set(Redis::smsKey($data['phone']), $data['code'], config('redis.out_time'));
