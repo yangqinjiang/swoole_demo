@@ -34,13 +34,14 @@ class Send
 
         if($send_ok){
             //TODO: 记录code到redis,使用协程Redis
+            //下面的代码, 跑不通, 
             /*$redis = new \Swoole\Coroutine\Redis();
             $redis->connect(config('redis.host'),config('redis.port'));
             $redis->set(\app\common\lib\Redis::smsKey($phoneNum),$code,config('redis.out_time'));
             $redis->close();*/
             //异步
             $redisClient = new \swoole_redis;
-            $redisClient->connect(config('redis.host'),config('redis.port'),function(\swoole_redis $redisClient,$result){
+            $redisClient->connect(config('redis.host'),config('redis.port'),function(\swoole_redis $redisClient,$result) use($phoneNum){
                 $redisClient->set(\app\common\lib\Redis::smsKey($phoneNum),$code,config('redis.out_time'));
                 $redisClient->close();
             });
