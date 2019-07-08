@@ -48,7 +48,7 @@ class Send
                 }
                 $phoneNum = '1';
                 $code = rand(1000, 9999);
-                $redisClient->set(\app\common\lib\Redis::smsKey($phoneNum),$code,config('redis.out_time'));//无法设置过期日期
+                $redisClient->set(\app\common\lib\Redis::smsKey($phoneNum),$code);//无法设置过期日期
                 //$redisClient->close();
             });
             // sleep(1);
