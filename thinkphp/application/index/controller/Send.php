@@ -41,7 +41,7 @@ class Send
             $redis->close();*/
             //异步
             $redisClient = new \swoole_redis();
-            $redisClient->connect(config('redis.host'),config('redis.port'), function(\swoole_redis $redisClient,$result){
+            $redisClient->connect(config('redis.host'),config('redis.port'), function($redisClient,$result){
                 if ($result === false) {
                     echo "connect to redis server failed.\n";
                     return;
