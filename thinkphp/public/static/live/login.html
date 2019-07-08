@@ -108,7 +108,7 @@
 				// $.post()
 				$.get(url, function (data) {
 					// TODO: 将下面3行代码删除
-					if (data.status == 'ok') {
+					if (data.status == 1) {
 						alert('发送完成');
 					}
 					// if (result.status != 'ok') {
@@ -122,8 +122,8 @@
 				event.preventDefault();
 				var formData = $('form').serialize();
 				// TODO: 请求后台接口跳转界面，前端跳转或者后台跳
-				$.get("https://www.easy-mock.com/mock/5ab1188bddac7967e4398146/example/query?" + formData, function (data) {
-					console.log("https://www.easy-mock.com/mock/5ab1188bddac7967e4398146/example/query?" + formData);
+				$.get("http://singwa.swoole.com:8811?s=index/login/index?" + formData, function (data) {
+
 					// location.href='index.html';
 				});
 			});
