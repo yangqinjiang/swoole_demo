@@ -28,7 +28,7 @@ class Send
                 'code' => $code,
             ]
         ];
-        sleep(1);
+        // sleep(1);
         $send_ok = true;//TODO:使用easy sms 库来发送短信 https://github.com/overtrue/easy-sms
 
 
