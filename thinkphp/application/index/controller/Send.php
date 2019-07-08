@@ -39,8 +39,8 @@ class Send
             $redis->set(\app\common\lib\Redis::smsKey($phoneNum),$code,config('redis.out_time'));
             $redis->close();*/
             //异步
-            $redisClient = new swoole_redis;
-            $redisClient->connect(config('redis.host'),config('redis.port'),function(swoole_redis $redisClient,$result){
+            $redisClient = new \swoole_redis;
+            $redisClient->connect(config('redis.host'),config('redis.port'),function(\swoole_redis $redisClient,$result){
                 $redisClient->set(\app\common\lib\Redis::smsKey($phoneNum),$code,config('redis.out_time'));
                 $redisClient->close();
             });
