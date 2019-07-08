@@ -40,16 +40,15 @@ class Send
             $redis->set(\app\common\lib\Redis::smsKey($phoneNum),$code,config('redis.out_time'));
             $redis->close();*/
             //异步
-            // $redisClient = new \swoole_redis();
-            // $redisClient->connect(config('redis.host'),config('redis.port'),
-            // function(\swoole_redis $redisClient,$result) use($phoneNum,$code){
-            //     if ($result === false) {
-            //         echo "connect to redis server failed.\n";
-            //         return;
-            //     }
-            //     $redisClient->set(\app\common\lib\Redis::smsKey($phoneNum),$code);//无法设置过期日期
-            //     $redisClient->close();
-            // });
+            $redisClient = new \swoole_redis();
+            $redisClient->connect(config('redis.host'),config('redis.port'), function(\swoole_redis $redisClient,$result) use($phoneNum,$code){
+                if ($result === false) {
+                    echo "connect to redis server failed.\n";
+                    return;
+                }
+                $redisClient->set(\app\common\lib\Redis::smsKey($phoneNum),$code);//无法设置过期日期
+                $redisClient->close();
+            });
             return Util::show(config('code.success'), $taskData);
         }else{
             return Util::show(config('code.error'), '验证码发送失败');
