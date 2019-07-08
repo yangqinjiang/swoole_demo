@@ -26,7 +26,7 @@ $http->on('WorkerStart', function(swoole_server $server,  $worker_id) {
     //require __DIR__ . '/../thinkphp/start.php';
 });
 $http->on('request', function($request, $response) use($http){
-
+    echo "some one request".PHP_EOL;
     //还原$_SERVER数据
     $_SERVER  =  [];//一定要清空,否则下次过来会保持上次请求的数据
     if(isset($request->server)) {
