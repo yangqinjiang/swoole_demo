@@ -4,12 +4,13 @@
  */
 class HttpOOP {
     CONST HOST = "0.0.0.0";
-    CONST PORT = 8811;
+    CONST PORT = 8811;// http 端口
+    CONST CHART_PORT = 8812;// ws 端口
 
     public $http = null;
     public function __construct() {
-        $this->http = new swoole_http_server(self::HOST, self::PORT);
-
+        $this->http = new swoole_websocket_server(self::HOST, self::PORT);
+        $this->http->listen(self::HOST, self::CHART_PORT, SWOOLE_SOCK_TCP);
         $this->http->set(
             [
                 'enable_static_handler' => true,
@@ -18,11 +19,22 @@ class HttpOOP {
                 'task_worker_num' => 4,
             ]
         );
-
+        // swoole 启动事件
+        $this->http->on("start", [$this, 'onStart']);
         $this->http->on("workerstart", [$this, 'onWorkerStart']);
+
+
+        // ws 的回调事件
+        $this->http->on("open", [$this, 'onOpen']);
+        $this->http->on("message", [$this, 'onMessage']);
+
+        //请求事件
         $this->http->on("request", [$this, 'onRequest']);
+
+        // task事件
         $this->http->on("task", [$this, 'onTask']);
         $this->http->on("finish", [$this, 'onFinish']);
+        
         $this->http->on("close", [$this, 'onClose']);
 
         $this->http->start();
@@ -131,6 +143,33 @@ class HttpOOP {
      */
     public function onClose($ws, $fd) {
         echo "clientid:{$fd}\n";
+    }
+    
+    /**
+     * 监听ws连接事件
+     * @param $ws
+     * @param $request
+     */
+    public function onOpen($ws, $request) {
+        // fd redis [1]
+        \app\common\lib\redis\Predis::getInstance()->sAdd(config('redis.live_game_key'), $request->fd);
+        var_dump($request->fd);
+    }
+
+    /**
+     * 监听ws消息事件
+     * @param $ws
+     * @param $frame
+     */
+    public function onMessage($ws, $frame) {
+        echo "ser-push-message:{$frame->data}\n";
+        $ws->push($frame->fd, "server-push:".date("Y-m-d H:i:s"));
+    }
+    /**
+     * @param $server
+     */
+    public function onStart($server) {
+        swoole_set_process_name("live_master");
     }
 }
 
