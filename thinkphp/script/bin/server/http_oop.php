@@ -131,7 +131,7 @@ class HttpOOP {
         $obj = new app\common\lib\task\Task();
 
         $method = $data['method'];
-        $flag = $obj->$method($data['data']);
+        $flag = $obj->$method($data['data'],$serv);
         
 
         return $flag; // 告诉worker
