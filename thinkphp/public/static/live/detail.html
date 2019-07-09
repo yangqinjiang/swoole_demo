@@ -14,16 +14,19 @@
 	<link rel="stylesheet" type="text/css" href="./assert/css/main.css" />
 	<link rel="stylesheet" href="./assert/iconfont/iconfont.css">
 	<link rel="shortcut icon" href="./favicon.ico">
-	<script src="./assert/js/jquery-3.3.1.min.js"></script>
+	<script src="./js/jquery-3.3.1.min.js"></script>
+	<script src="./js/live.js"></script>
 	<style>
 		/*详情界面保持上部分静止，下面滚动; 同样利用flex布局 poster自然高度， tab-nav自然高度， tab-block填满剩余部分*/
 		.poster {
 			position: relative;
 		}
+
 		.post-img {
 			height: 30vh;
 			width: 100%;
 		}
+
 		.poster-title {
 			position: absolute;
 			bottom: 0;
@@ -35,13 +38,16 @@
 			/*这里不要使用opacity属性，文字也会继承透明属性，使用rgpa*/
 			background: rgba(0, 0, 0, 0.3);
 		}
+
 		.poster-title-team {
 			flex: 1;
 			text-align: center;
 		}
+
 		.poster-title-team img {
 			border-radius: 50%;
 		}
+
 		/* ************************tab 切换******************************* */
 		.tab-nav {
 			display: flex;
@@ -49,7 +55,8 @@
 			padding: 5px 0;
 			text-align: center;
 		}
-		.tab-nav > div {
+
+		.tab-nav>div {
 			flex: 1;
 			line-height: 2rem;
 			font-size: 1.1rem;
@@ -57,12 +64,15 @@
 			border-right: 1px solid #eee;
 			padding-bottom: 2px;
 		}
-		.tab-nav > div:last-child {
+
+		.tab-nav>div:last-child {
 			border: none;
 		}
-		.tab-nav > div.active {
+
+		.tab-nav>div.active {
 			border-bottom: 2px solid #38f;
 		}
+
 		.tab-block {
 			flex: 1;
 			overflow-y: scroll;
@@ -72,11 +82,13 @@
 		.frame {
 			padding: 5px;
 		}
+
 		/*加强时间icon的效果*/
 		.frame .icon {
 			font-weight: bold;
 			margin-right: 5px;
 		}
+
 		.frame-header {
 			font-size: 0.8rem;
 			display: inline-block;
@@ -85,17 +97,20 @@
 			color: #fff;
 			border-radius: 10px;
 		}
+
 		.frame-item {
 			position: relative;
 			margin-left: 5px;
 			border-left: 1px dotted #38f;
 			padding: 20px 10px 0;
 		}
-		.frame-item > p {
+
+		.frame-item>p {
 			font-size: 1rem;
 			color: #404040;
 			padding: 5px 0;
 		}
+
 		.frame-dot {
 			position: absolute;
 			width: 6px;
@@ -103,18 +118,21 @@
 			background: #38f;
 			border-radius: 50%;
 			left: -4px;
-    		top: 27px;
+			top: 27px;
 		}
+
 		.frame-item-author {
 			color: #888;
 			font-size: 0.8rem;
 			vertical-align: middle;
 		}
+
 		/* *************** 评论 ****************  */
 		.comments {
 			/*为评论输入框留位置，由于输入框是绝对定位*/
 			padding-bottom: 50px;
 		}
+
 		.comment-form {
 			position: fixed;
 			bottom: 0;
@@ -122,20 +140,23 @@
 			width: 100%;
 			height: 50px;
 		}
+
 		.comment-form input {
-			background:ghostwhite;
+			background: ghostwhite;
 			border-top: 1px solid #eee;
 			outline: none;
 			padding: 5px 10px;
 			width: 100%;
 			height: 100%;
 		}
+
 		.comment {
 			font-size: 1rem;
 			line-height: 1.5rem;
 			margin: 5px 10px;
 		}
-		.comment > span:first-child {
+
+		.comment>span:first-child {
 			color: #38f;
 		}
 
@@ -144,33 +165,41 @@
 		.match-data {
 			background: #eee;
 		}
-		.match-data > div {
+
+		.match-data>div {
 			background: #fff;
 			margin-bottom: 10px;
 			padding: 10px;
 		}
+
 		.match-score {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			text-align: center;
 		}
+
 		.match-team-info {
 			flex: 1;
 		}
+
 		.match-team-info img {
 			margin-bottom: 5px;
 		}
+
 		.match-score-result {
 			flex: 3;
 		}
-		.match-score-result > div {
+
+		.match-score-result>div {
 			margin: 5px 0;
 		}
+
 		.sub-title {
 			font-size: 1.1rem;
 			font-weight: bold;
 		}
+
 		.match-report-row {
 			display: flex;
 			height: 40px;
@@ -178,28 +207,33 @@
 			text-align: center;
 			align-items: center;
 		}
+
 		.match-report-row.row-title {
 			border-bottom: 1px solid #eee;
 			color: #888;
 			font-size: .8rem;
 		}
+
 		.match-report-row span {
 			flex: 1;
 		}
+
 		.match-report-row span:first-child {
 			text-align: left;
 		}
+
 		.match-report-row span:last-child {
 			text-align: right;
 		}
 
 		/* 本场最佳 */
-		.mvp > div {
+		.mvp>div {
 			margin: 10px 0;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 		}
+
 		.mvp-score {
 			display: flex;
 			font-size: 1.1rem;
@@ -207,27 +241,33 @@
 			justify-content: space-between;
 			align-items: center
 		}
+
 		.mvp-score span {
 			margin: 0 10px;
 		}
+
 		.mvp-score-label {
 			font-size: .8rem;
 			color: #888;
 		}
+
 		.mvp-player {
 			flex: 1;
 			display: flex;
 			align-items: center;
 		}
+
 		/*让第二个球员的信息，靠右*/
 		.mvp-player:last-child {
 			justify-content: flex-end;
 		}
+
 		.mvp-player-info {
 			margin: 0 5px;
 			font-size: .8rem;
 			color: #888;
 		}
+
 		.mvp-player img {
 			border-radius: 50%;
 		}
@@ -333,7 +373,8 @@
 				</div>
 				<div class="comment">
 					<span>singwa</span>
-					<span> 火箭目前位列西部第一，在击败独行侠之后，他们已经领先勇士1.5个胜场，而马刺的处境则是较为尴尬，他们目前拿到了37胜29负，只比身后的快船、掘金和爵士多0.5个胜场，如果马刺赢下火箭，他们将会继续保住西部前7的位置。</span>
+					<span>
+						火箭目前位列西部第一，在击败独行侠之后，他们已经领先勇士1.5个胜场，而马刺的处境则是较为尴尬，他们目前拿到了37胜29负，只比身后的快船、掘金和爵士多0.5个胜场，如果马刺赢下火箭，他们将会继续保住西部前7的位置。</span>
 				</div>
 				<div class="comment">
 					<span>xixi</span>
@@ -443,7 +484,8 @@
 								<div>帕克</div>
 							</div>
 						</div>
-						<div class="mvp-score"><span>10</span><span class="mvp-score-label">助攻</span><span>9</span></div>
+						<div class="mvp-score"><span>10</span><span class="mvp-score-label">助攻</span><span>9</span>
+						</div>
 						<div class="mvp-player">
 							<div class="mvp-player-info">
 								<div>3</div>
@@ -478,4 +520,5 @@
 		});
 	</script>
 </body>
+
 </html>

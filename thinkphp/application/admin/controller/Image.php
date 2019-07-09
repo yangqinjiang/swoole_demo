@@ -7,6 +7,7 @@ class Image
 
     public function index() {
         $file = request()->file('file');
+        //注意路径
         $info = $file->move(APP_PATH.'../public/static/upload');
         if($info) {
             // // 成功上传后 获取上传信息
