@@ -179,7 +179,7 @@ class HttpOOP {
      */
     public function onMessage($ws, $frame) {
         echo "ser-push-message:{$frame->data}\n";
-        $ws->push($frame->fd, "server-push:".date("Y-m-d H:i:s"));
+        //$ws->push($frame->fd, "server-push:".date("Y-m-d H:i:s"));
     }
     /**
      * @param $server

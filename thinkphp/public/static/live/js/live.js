@@ -17,6 +17,9 @@ websocket.onerror = function (evt, e) {
 }
 function push(raw_data) {
     var data = JSON.parse(raw_data);
+    if (!data.type) {
+        return;
+    }
     var html = '<div class="frame">';
     html += '<h3 class="frame-header">';
     html += '<i class="icon iconfont icon-shijian"></i>第' + data.type + '节 01：30';
