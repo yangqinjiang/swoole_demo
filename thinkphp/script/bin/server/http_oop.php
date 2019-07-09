@@ -5,7 +5,7 @@
 class HttpOOP {
     CONST HOST = "0.0.0.0";
     CONST PORT = 8811;// http 端口
-    CONST CHART_PORT = 8812;// ws 端口
+    CONST CHART_PORT = 8812;// ws 聊天室 端口
 
     public $http = null;
     public function __construct() {
@@ -84,6 +84,13 @@ class HttpOOP {
         if(isset($request->post)) {
             foreach($request->post as $k => $v) {
                 $_POST[$k] = $v;
+            }
+        }
+        //还原$_FILES数据
+        $_FILES = [];
+        if(isset($request->files)) {
+            foreach($request->files as $k => $v) {
+                $_FILES[$k] = $v;
             }
         }
 
@@ -169,6 +176,9 @@ class HttpOOP {
      * @param $server
      */
     public function onStart($server) {
+        //设置进程名称, 
+        //在linux系统内,可通过  netstat -anp|grep 8811或8812 查询
+        //tcp  0    0 0.0.0.0:8812     0.0.0.0:*      LISTEN    8019/live_master
         swoole_set_process_name("live_master");
     }
 }
