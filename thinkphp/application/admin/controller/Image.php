@@ -7,7 +7,7 @@ class Image
 
     public function index() {
         $file = request()->file('file');
-        $info = $file->move('../../../public/static/upload');
+        $info = $file->move(APP_PATH.'../public/static/upload');
         if($info) {
             $data = [
                 'image' => config('live.host')."/upload/".$info->getSaveName(),
