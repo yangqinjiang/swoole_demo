@@ -70,6 +70,10 @@ class Predis {
     public function sMembers($key) {
         return $this->redis->sMembers($key);
     }
+    public function del($key)
+    {
+        return $this->redis->del($key);
+    }
 
     /**
      * @param $name
