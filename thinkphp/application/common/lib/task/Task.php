@@ -45,6 +45,7 @@ class Task {
      * @param $serv swoole server对象
      */
     public function pushLive($data, $serv) {
+        echo "通过task机制发送赛况实时数据给客户端".PHP_EOL;
         $clients = Predis::getInstance()->sMembers(config("redis.live_game_key"));
 
         foreach($clients as $fd) {
