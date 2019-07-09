@@ -9,6 +9,8 @@ class HttpOOP {
 
     public $http = null;
     public function __construct() {
+        //TODO: 判断redis的 websocket的fd 是否存在, 是否清空
+        \app\common\lib\redis\Predis::getInstance()->del(config('redis.live_game_key'));
         $this->http = new swoole_websocket_server(self::HOST, self::PORT);
         $this->http->listen(self::HOST, self::CHART_PORT, SWOOLE_SOCK_TCP);
         $this->http->set(
