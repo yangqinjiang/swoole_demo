@@ -144,24 +144,29 @@ class HttpOOP {
     }
 
     /**
-     * close
-     * @param $ws
-     * @param $fd
-     */
-    public function onClose($ws, $fd) {
-        echo "clientid:{$fd}\n";
-    }
-    
-    /**
      * 监听ws连接事件
      * @param $ws
      * @param $request
      */
     public function onOpen($ws, $request) {
         // fd redis [1]
+        //添加到redis的集合,方便遍历并发送信息
         \app\common\lib\redis\Predis::getInstance()->sAdd(config('redis.live_game_key'), $request->fd);
+        echo "onOpen...{$request->fd}".PHP_EOL;
         var_dump($request->fd);
     }
+    /**
+     * close
+     * @param $ws
+     * @param $fd
+     */
+    public function onClose($ws, $fd) {
+        //移除 ws连接
+        \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
+        echo "onClose clientid:{$fd}".PHP_EOL;;
+    }
+    
+
 
     /**
      * 监听ws消息事件
