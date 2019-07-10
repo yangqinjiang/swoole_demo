@@ -63,6 +63,12 @@ class HttpOOP {
      */
     public function onRequest($request, $response) {
         echo "some one request".PHP_EOL;
+        //如果是 请求图标, 则跳过
+        if($request->server['request_uri'] == '/favicon.ico') {
+            $response->status(404);
+            $response->end();
+            return ;
+        }
         //还原$_SERVER数据
         $_SERVER  =  [];//一定要清空,否则下次过来会保持上次请求的数据
         if(isset($request->server)) {
@@ -98,6 +104,7 @@ class HttpOOP {
             }
         }
 
+        $this->writeLog();//记录日志,写在下面一行代码前, 为了避免记录$_POST['http_server'] 
         $_POST['http_server'] = $this->http;//保持http实例
 
         ob_start();
@@ -191,6 +198,22 @@ class HttpOOP {
         //在linux系统内,可通过  netstat -anp|grep 8811或8812 查询
         //tcp  0    0 0.0.0.0:8812     0.0.0.0:*      LISTEN    8019/live_master
         swoole_set_process_name("live_master");
+    }
+    /**
+     * 记录日志
+     */
+    public function writeLog() {
+        $datas = array_merge(['date' => date("Ymd H:i:s")],$_GET, $_POST, $_SERVER);
+
+        $logs = "";
+        foreach($datas as $key => $value) {
+            $logs .= $key . ":" . $value . " ";
+        }
+        //按日期区分的文件夹
+        swoole_async_writefile(APP_PATH.'../runtime/log/'.date("Ym")."/".date("d")."_access.log", $logs.PHP_EOL, function($filename){
+            // todo
+        }, FILE_APPEND);
+
     }
 }
 
