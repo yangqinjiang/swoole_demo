@@ -14,7 +14,7 @@ class Chart
         }
 
         $data = [
-            'user' => "用户".rand(0, 2000),
+            'user' => "用户".rand(1000, 2000),
             'content' => htmlentities($this->remove_xss($_POST['content'])),
         ];
         //TODO: 保存到数据库的聊天表
