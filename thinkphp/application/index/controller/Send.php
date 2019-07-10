@@ -19,7 +19,7 @@ class Send
 
         //tood
         // 生成一个随机数
-        $code = rand(1000, 9999);
+        $code = 6666;//rand(1000, 9999);
 
         $taskData = [
             'method' => 'sendSms',
