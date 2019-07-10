@@ -153,6 +153,8 @@ class HttpOOP {
      * @param $request
      */
     public function onOpen($ws, $request) {
+        // $ws 有一个ports数组
+        print_r($ws);
         // fd redis [1]
         //添加到redis的集合,方便遍历并发送信息
         \app\common\lib\redis\Predis::getInstance()->sAdd(config('redis.live_game_key'), $request->fd);
@@ -178,7 +180,7 @@ class HttpOOP {
      * @param $frame
      */
     public function onMessage($ws, $frame) {
-        echo "ser-push-message:{$frame->data}\n";
+        echo "ser-push-message:{$frame ->data}\n";
         $ws->push($frame->fd, json_encode(['status'=>0]));
     }
     /**
