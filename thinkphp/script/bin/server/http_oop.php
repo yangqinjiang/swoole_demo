@@ -217,4 +217,6 @@ class HttpOOP {
     }
 }
 
+// 在linux后台运行
+// nohup /path/to/bin/php http_oop.php > log.file &
 new HttpOOP();
