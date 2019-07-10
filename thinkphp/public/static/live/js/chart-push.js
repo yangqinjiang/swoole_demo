@@ -5,8 +5,9 @@ $(function () {//必须在页面加载完成
             // 发送地址
             var url = "http://singwa.swoole.com:8811/?s=index/chart/index";
             var data = { 'content': text, 'game_id': 1 };//game_id从页面上获取
+            var that = this;
             $.post(url, data, function (result) {
-                $(this).val('');//清空
+                $(that).val('');//清空
             }, 'json');
         }
     });
