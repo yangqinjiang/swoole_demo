@@ -1,16 +1,14 @@
 <?php
 /**
  * 监控服务 ws http 8811
- * Created by PhpStorm.
- * User: baidu
- * Date: 18/4/7
- * Time: 下午10:00
  */
 
 class Server {
     const PORT = 8811;
 
     public function port() {
+        // 2>/dev/null 去掉无用的信息
+        //  | grep LISTEN | wc -l 查询到正在LISTEN 的行数,并统计
         $shell  =  "netstat -anp 2>/dev/null | grep ". self::PORT . " | grep LISTEN | wc -l";
 
         $result = shell_exec($shell);
@@ -24,7 +22,9 @@ class Server {
     }
 }
 
-// nohup
+// nohup /path/to/bin/php server.php > log.file &
+//检测是否运行
+//   ps aux|grep monitor/server.php
 swoole_timer_tick(2000, function($timer_id) {
     (new Server())->port();
     echo "time-start".PHP_EOL;
