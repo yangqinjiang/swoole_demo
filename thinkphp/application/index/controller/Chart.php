@@ -17,7 +17,8 @@ class Chart
             'user' => "用户".rand(0, 2000),
             'content' => htmlentities($this->remove_xss($_POST['content'])),
         ];
-        //  todo
+        //TODO: 保存到数据库的聊天表
+        //TODO: 放到task中运行
         foreach($_POST['http_server']->ports[1]->connections as $fd) {
             $_POST['http_server']->push($fd, json_encode($data));
         }
