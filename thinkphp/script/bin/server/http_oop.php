@@ -62,7 +62,7 @@ class HttpOOP {
      * @param $response
      */
     public function onRequest($request, $response) {
-        echo "some one request".PHP_EOL;
+        echo "some one request url:".$request->server['request_uri'].PHP_EOL;
         //如果是 请求图标, 则跳过
         if($request->server['request_uri'] == '/favicon.ico') {
             $response->status(404);
