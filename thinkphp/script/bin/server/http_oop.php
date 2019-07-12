@@ -119,7 +119,7 @@ class HttpOOP {
             // todo
         }
 
-        //echo "-action-".request()->action().PHP_EOL;
+        echo "-action-".request()->action().PHP_EOL;
         $res = ob_get_contents();//读取缓冲区的内容
         ob_end_clean();
         $response->end($res);
